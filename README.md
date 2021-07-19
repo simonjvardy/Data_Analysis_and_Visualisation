@@ -74,17 +74,27 @@ git clone https://github.com/simonjvardy/Data_Analysis_and_Visualisation.git
 pip3 install -r requirements.txt
 ```
 
-#### **Build the initial `index.html` page** ####
+#### **Build the individual Quasar WebPages** ####
 
-- in you IDE terminal window, enter:
+- In your IDE terminal window, enter:
 
 ```python
-python3 map3_volcanoes_population.py
+python3 1-average-rating-day.py
 ```
 
-Run `1-average-rating-day.py` locally in a web browser using URL http://http://127.0.0.1:8000/ to show the Average Rating by Day graph
-Run `2-average-rating-weekpy` locally in a web browser using URL http://http://127.0.0.1:8000/ to show the Average Rating by Week graph
-Run `3-average-rating-month.py` locally in a web browser using URL http://http://127.0.0.1:8000/ to show the Average Rating by Month graph
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Day graph
+
+```python
+python3 2-average-rating-week.py
+```
+
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Week graph
+
+```python
+python3 3-average-rating-month.py
+```
+
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Month graph
 
 ---
 
