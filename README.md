@@ -82,19 +82,25 @@ pip3 install -r requirements.txt
 python3 1-average-rating-day.py
 ```
 
-Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Day graph
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Day graph.
+
+![Ave. Rating by Day](assets/img/ave_ratings_by_day.png)
 
 ```python
 python3 2-average-rating-week.py
 ```
 
-Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Week graph
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Week graph.
+
+![Ave. Rating by Week](assets/img/ave_ratings_by_week.png)
 
 ```python
 python3 3-average-rating-month.py
 ```
 
-Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Month graph
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Month graph.
+
+![Ave. Rating by Month](assets/img/ave_ratings_by_month.png)
 
 ---
 
