@@ -4,13 +4,14 @@ from datetime import datetime
 from pytz import utc  # Needed to support dtype=datetime64[ns, UTC] from Pandas and datetime.datetime comparison
 from justpy import chartcomponents
 
-# Load the Pandas DataFrame
+# Load the Pandas DataFrame   
 data = pd.read_csv('assets/csv/reviews.csv', parse_dates=['Timestamp'])  # Timestamp column is parsed as text otherwise
-data['Day'] = data['Timestamp'].dt.date
-day_average = data.groupby(['Day']).mean()
-
-# Highcharts Spline Chart JS Code 
-# https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/spline-inverted
+data['Weekday'] = data['Timestamp'].dt.strftime('%A')
+data['Daynumber'] = data['Timestamp'].dt.strftime('%w')
+    
+weekday_average = data.groupby(['Weekday', 'Daynumber']).mean()
+weekday_average = weekday_average.sort_values('Daynumber')
+    
 chart_def = """
 {
     chart: {
@@ -27,26 +28,26 @@ chart_def = """
         reversed: false,
         title: {
             enabled: true,
-            text: 'Date'
+            text: 'Day'
         },
         labels: {
             format: '{value}'
         },
         accessibility: {
-            rangeDescription: 'Date Range: 01.01.2018 to 29.03.2021'
+            rangeDescription: 'Range: Monday to Friday.'
         },
         maxPadding: 0.05,
         showLastLabel: true
     },
     yAxis: {
         title: {
-            text: 'Ave. Rating'
+            text: 'Rating'
         },
         labels: {
-            format: '{value}'
+            format: '{value}°'
         },
         accessibility: {
-            rangeDescription: 'Range: 0 to 5'
+            rangeDescription: 'Range: 0 to 5.'
         },
         lineWidth: 2
     },
@@ -65,12 +66,12 @@ chart_def = """
         }
     },
     series: [{
-        name: 'Ave. Rating',
+        name: 'Rating',
         data: []
     }]
 }
 """
-
+    
 def app():
     """
     Function to create a Quasar Page using the Vue.js framework from the supported components within the JustPy package.
@@ -87,12 +88,12 @@ def app():
     Access the hc dictionary keys using dot notation.
     Pass the Pandas DataFrame index and column data as chart x & y values
     """
-    hc.options.title.text = 'Average Rating by Day'
+    hc.options.title.text = 'Aggregated Average Ratings by Day of the Week'
     hc.options.subtitle.text = 'Interactive chart using JustPy with HighCharts'
-    hc.options.xAxis.categories = list(day_average.index)
-    hc.options.series[0].data = list(day_average['Rating'])
 
+    hc.options.xAxis.categories = list(weekday_average.index.get_level_values(0))
+    hc.options.series[0].data = list(weekday_average['Rating'])
+    
     return webpage
-
-# Call the app function using justpy
+    
 jp.justpy(app)

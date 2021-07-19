@@ -6,66 +6,52 @@ from justpy import chartcomponents
 
 # Load the Pandas DataFrame
 data = pd.read_csv('assets/csv/reviews.csv', parse_dates=['Timestamp'])  # Timestamp column is parsed as text otherwise
-data['Day'] = data['Timestamp'].dt.date
-day_average = data.groupby(['Day']).mean()
+data['Month'] = data['Timestamp'].dt.strftime('%Y-%m')
+month_average_crs = data.groupby(['Month', 'Course Name']).mean().unstack()
 
 # Highcharts Spline Chart JS Code 
-# https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/spline-inverted
+# https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/areaspline
 chart_def = """
 {
     chart: {
-        type: 'spline',
-        inverted: false
+        type: 'spline'
     },
     title: {
         text: ''
     },
-    subtitle: {
-        text: ''
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: false,
+        borderWidth: 1,
+        backgroundColor:
+            '#FFFFFF'
     },
     xAxis: {
-        reversed: false,
-        title: {
-            enabled: true,
-            text: 'Date'
-        },
-        labels: {
-            format: '{value}'
-        },
-        accessibility: {
-            rangeDescription: 'Date Range: 01.01.2018 to 29.03.2021'
-        },
-        maxPadding: 0.05,
-        showLastLabel: true
+        categories: [],
     },
     yAxis: {
         title: {
-            text: 'Ave. Rating'
-        },
-        labels: {
-            format: '{value}'
-        },
-        accessibility: {
-            rangeDescription: 'Range: 0 to 5'
-        },
-        lineWidth: 2
-    },
-    legend: {
-        enabled: false
+            text: 'Fruit units'
+        }
     },
     tooltip: {
-        headerFormat: '<b>{series.name}</b><br/>',
-        pointFormat: '{point.x} : {point.y}'
+        shared: true,
+        valueSuffix: ' units'
+    },
+    credits: {
+        enabled: false
     },
     plotOptions: {
-        spline: {
-            marker: {
-                enable: false
-            }
+        areaspline: {
+            fillOpacity: 0.5
         }
     },
     series: [{
-        name: 'Ave. Rating',
+        name: '',
         data: []
     }]
 }
@@ -87,10 +73,13 @@ def app():
     Access the hc dictionary keys using dot notation.
     Pass the Pandas DataFrame index and column data as chart x & y values
     """
-    hc.options.title.text = 'Average Rating by Day'
+    hc.options.title.text = 'Average Rating by Month by Course'
     hc.options.subtitle.text = 'Interactive chart using JustPy with HighCharts'
-    hc.options.xAxis.categories = list(day_average.index)
-    hc.options.series[0].data = list(day_average['Rating'])
+    hc.options.xAxis.categories = list(month_average_crs.index)
+
+    # Create a nested list comprehension of DataFrame columns and column data
+    hc_data = [{"name": v1, "data": [v2 for v2 in month_average_crs[v1]]} for v1 in month_average_crs.columns]
+    hc.options.series = hc_data
 
     return webpage
 

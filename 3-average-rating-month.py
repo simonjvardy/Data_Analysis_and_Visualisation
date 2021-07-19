@@ -77,8 +77,8 @@ def app():
     Highcharts SVG Charting Library is used to create the data visualisation.
     """
     webpage = jp.QuasarPage()
-    h1 = jp.QDiv(a=webpage, text="Analysis of Course Reviews", classes="text-h3 text-center q-pa-md")
-    p1 = jp.QDiv(a=webpage, text="These graphs represent course review analysis", classes="text-h5 text-center q-pa-md")
+    jp.QDiv(a=webpage, text="Analysis of Course Reviews", classes="text-h3 text-center q-pa-md")
+    jp.QDiv(a=webpage, text="These graphs represent course review analysis", classes="text-h5 text-center q-pa-md")
 
     # JustPy converts string to Python Dictionary before displaying the content
     hc = jp.HighCharts(a=webpage, options=chart_def)
