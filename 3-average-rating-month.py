@@ -6,8 +6,8 @@ from justpy import chartcomponents
 
 # Load the Pandas DataFrame
 data = pd.read_csv('assets/csv/reviews.csv', parse_dates=['Timestamp'])  # Timestamp column is parsed as text otherwise
-data['Day'] = data['Timestamp'].dt.date
-day_average = data.groupby(['Day']).mean()
+data['Month'] = data['Timestamp'].dt.strftime('%Y-%m')
+month_average = data.groupby(['Month']).mean()
 
 # Highcharts Spline Chart JS Code 
 # https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/spline-inverted
@@ -27,7 +27,7 @@ chart_def = """
         reversed: false,
         title: {
             enabled: true,
-            text: 'Date'
+            text: 'Month'
         },
         labels: {
             format: '{value}'
@@ -87,10 +87,10 @@ def app():
     Access the hc dictionary keys using dot notation.
     Pass the Pandas DataFrame index and column data as chart x & y values
     """
-    hc.options.title.text = 'Average Rating by Day'
+    hc.options.title.text = 'Average Rating by Month'
     hc.options.subtitle.text = 'Interactive chart using JustPy with HighCharts'
-    hc.options.xAxis.categories = list(day_average.index)
-    hc.options.series[0].data = list(day_average['Rating'])
+    hc.options.xAxis.categories = list(month_average.index)
+    hc.options.series[0].data = list(month_average['Rating'])
 
     return webpage
 
