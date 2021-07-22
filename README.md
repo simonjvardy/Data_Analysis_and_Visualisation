@@ -4,7 +4,7 @@
 
 ## About ##
 
-This coding example is part of a Udemy Python course using Python Pandas library with JustPy to plot dataframes graphs onto web pages for interactive data visualisation.
+This coding example is part of a Udemy Python course using Python Pandas library with JustPy to plot graphs from DataFrames onto web pages for interactive data visualisation.
 The source data is imported into a Pandas DataFrame from a .csv file and presented on a web page using JustPy Quasar pages and HighCharts.
 
 ---
@@ -125,6 +125,14 @@ python3 6-happiest-day-of-week.py
 Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Average Rating by Day of the Week graph indicating when the Students are happiest to leave a good review.
 
 ![Happiest Day of the Week](assets/img/happiest_day_of_week.png)
+
+```python
+python3 7-rating-count-by-course-pie.py
+```
+
+Output runs locally in a web browser using URL http://127.0.0.1:8000/ to show the Rating Count by Course pie chart.
+
+![Happiest Day of the Week](assets/img/ratings_by_course_pie.png)
 
 ---
 
