@@ -7,7 +7,9 @@ from justpy import chartcomponents
 # Load the Pandas DataFrame   
 data = pd.read_csv('assets/csv/reviews.csv', parse_dates=['Timestamp'])  # Timestamp column is parsed as text otherwise
 share = data.groupby(['Course Name'])['Rating'].count()
-    
+
+# Highcharts Spline Chart JS Code
+# https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/pie-basic
 chart_def = """
 {
     chart: {

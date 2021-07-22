@@ -11,7 +11,9 @@ data['Daynumber'] = data['Timestamp'].dt.strftime('%w')
     
 weekday_average = data.groupby(['Weekday', 'Daynumber']).mean()
 weekday_average = weekday_average.sort_values('Daynumber')
-    
+
+# Highcharts Spline Chart JS Code 
+# https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/spline-inverted
 chart_def = """
 {
     chart: {
