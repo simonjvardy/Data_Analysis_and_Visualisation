@@ -8,7 +8,7 @@ click==8.0.1
 colorama==0.4.4
 cycler==0.10.0
 demjson==2.2.4
-h11==0.12.0
+h11==0.16.0
 httpcore==0.13.6
 httpx==1.0.0.beta0
 idna==3.7
